@@ -1,14 +1,15 @@
 import time
 import math
 
-def printFirstHalf(num, zero_to_append):
+def printFirstHalf(num):
     '''
         row is \n
-        4 2 | 3 3 3 3 3 3 | 2 4\n
-        pre = [4, 2]\n
-        lst = [3, 3, 3, 3, 3]\n
+        4 3 | 2 2 2  | 3 4\n
+        pre = [4, 3]\n
+        lst = [2,2,2]\n
         post = reverse of pre\n
     '''
+    total_digits=math.floor(math.log10(num))+1 # total digits
     matrix=[] # it will contain list of all rows of pattern
     # prints the first half of pattern
     for turn in range(num):
@@ -18,20 +19,16 @@ def printFirstHalf(num, zero_to_append):
         val=num-turn
 
         while n>val:
-            if math.floor(math.log10(n))<zero_to_append:
-                pre.append('0'*zero_to_append+str(n))
-            else:
-                pre.append(str(n))
+            num_of_digits=math.floor(math.log10(n))+1 # number of digits of current number
+            zeroes_to_append=total_digits-num_of_digits
+            pre.append('0'*zeroes_to_append+str(n))
             n-=1
         
-        VAL=math.floor(math.log10(val)) # no of digits in val
-
+        VAL=math.floor(math.log10(val))+1 # no of digits in val
+        zeroes_to_append=total_digits-VAL
         # filling the list lst
         for N in range(val+(val-1)):
-            if VAL<zero_to_append:
-                lst.append('0'*zero_to_append+str(val))
-            else:
-                lst.append(str(val))
+            lst.append('0'*zeroes_to_append+str(val))
         
         if len(pre)!=0:
             post=pre.copy()
@@ -50,7 +47,7 @@ def printFirstHalf(num, zero_to_append):
 
 def printSecondHalf(matrix):
     size=len(matrix)
-    index=size-12
+    index=size-2
     # prints the second half of pattern
     while index>=0:
         string=" ".join(matrix[index])
@@ -86,9 +83,7 @@ def printPrettyMatrix():
     '''
     num=int(input("Enter number >> "))
 
-    zero_to_append=math.log10(num) 
-    zero_to_append=math.floor(zero_to_append) 
-    matrix=printFirstHalf(num, zero_to_append)
+    matrix=printFirstHalf(num)
     printSecondHalf(matrix)
 
 start=time.time()

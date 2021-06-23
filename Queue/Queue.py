@@ -68,7 +68,7 @@ class Queue():
                 return
             else:
                 reverse_queue(i+1)
-                element=self._QUEUE.pop(i-1) # picks element from end of queue to start of queue
+                element=self._QUEUE.pop(i-1) # picks element from end of queue  and appending to start of queue
                 self._QUEUE.append(element)
                 return
         reverse_queue(start)
